@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Nearby Buses</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+<!--Next, we'll create the form. It will contain two fields - address and city - and put them in an object called request of type BusRequest.-->
+<div class="container bg-light justify-content-center">
+    <div class="row">
+        <div class="span6" style="float: none; margin: 0 auto;">
+            <br/>
+            <h1 class="text-center">Find Buses</h1>
+<!--            changed th:object to th:name-->
+            <form th:action="@{/buses}" th:name="${request}" method="post" autocomplete="off" class="form-inline">
+                <div class="form-group">
+<!--                    changed th:field="*{address}" to th:value="${address}"-->
+                    <input type="text" th:value="${address}" placeholder="Address" class="form-control"/>
+                </div>
+                <div class="form-group">
+<!--                    changed th:field="*{address}" to th:value="${address}"-->
+                    <input type="text" th:value="${city}" placeholder="City" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-md btn-primary btn-block" name="Submit" value="Submit" type="Submit">Find</button>
+                </div>
+            </form>
+            <br/>
+        </div>
+    </div>
+<!--    After that, if our list of buses isn't null, we display a table that shows all the nearby buses below the form.-->
+    <div class="row" th:if="${buses != null and buses.size() > 0}">
+        <table class="table table-striped">
+            <tr>
+                <th>Route #</th>
+                <th>Bus #</th>
+                <th>Next Stop</th>
+                <th>Distance (mi)</th>
+            </tr>
+            <tr th:each="bus: ${buses}">
+                <td th:text="${bus.ROUTE}"></td>
+                <td th:text="${bus.VEHICLE}"></td>
+                <td th:text="${bus.TIMEPOINT}"></td>
+                <td th:text="${bus.distance}"></td>
+            </tr>
+        </table>
+    </div>
+<!--    Finally, if there are no nearby buses, we display a message:-->
+    <div class="text-center" th:if="${buses != null and buses.size() == 0}">
+        <h3>Sorry, there are no nearby buses.</h3>
+    </div>
+</div>
+</body>
