@@ -13,8 +13,13 @@ import java.util.List;
 
 @Controller
 public class TransitController {
+
     @Autowired
     private TransitService apiService;
+
+    public TransitController(TransitService apiService) {
+        this.apiService = apiService;
+    }
 
     @GetMapping("/buses")
     public String getBusesPage(Model model){

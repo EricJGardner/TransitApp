@@ -43,7 +43,7 @@ public class TransitService {
     }
 
     //Next, we'll create the GetDistance method, which will
-    // use the Distance Matrix API tofind the distance between two coordinates.
+    // use the Distance Matrix API to find the distance between two coordinates.
     //First, we build the request:
     private double getDistance(Location origin, Location destination) {
         String url = distanceUrl + "origins=" + origin.lat + "," + origin.lng
